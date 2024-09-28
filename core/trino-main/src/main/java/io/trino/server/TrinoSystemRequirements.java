@@ -58,11 +58,13 @@ final class TrinoSystemRequirements
     {
         verifyJavaVersion();
         verify64BitJvm();
-        verifyOsArchitecture();
+        // 取消os验证
+        // verifyOsArchitecture();
         verifyByteOrder();
         verifyUsingG1Gc();
         verifyJdk8329528Workaround();
-        verifyFileDescriptor();
+        // 取消文件描述符检查
+        // verifyFileDescriptor();
         verifySlice();
         verifyUtf8();
     }
