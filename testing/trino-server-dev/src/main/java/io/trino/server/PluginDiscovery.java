@@ -27,6 +27,7 @@ import java.io.UncheckedIOException;
 import java.io.Writer;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
@@ -54,7 +55,8 @@ final class PluginDiscovery
         }
 
         File file = artifact.getFile();
-        if (!file.getPath().endsWith("/target/classes")) {
+        // 使用Path类型检查路径
+        if (!Paths.get(file.getPath()).endsWith(Paths.get("target/classes"))) {
             throw new RuntimeException("Unexpected file for main artifact: " + file);
         }
         if (!file.exists()) {
@@ -137,6 +139,7 @@ final class PluginDiscovery
 
     private static String javaName(String binaryName)
     {
-        return binaryName.replace('/', '.');
+        // 将文件路径转换为包名(windows环境将\替换为.)
+        return binaryName.replace('/', '.').replace('\\', '.');
     }
 }
